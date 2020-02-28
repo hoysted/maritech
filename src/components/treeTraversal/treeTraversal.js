@@ -2,9 +2,9 @@ import React from 'react';
 
 function treeTraversal() {
   return (
-    <div className="App">
+    <React.Fragment>
     <p>tree</p>
-    </div>
+    </React.Fragment>
   );
 }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import './react.css';
 
 class ReactComponent extends React.Component {
   constructor(props){
@@ -13,7 +14,7 @@ class ReactComponent extends React.Component {
   dateApi = (event) => {
     event.preventDefault();
 
-    if(this.state.dateEntered){
+    if(this.state.dateEntered && this.state.dateEntered.indexOf(' ') >= 0){
       let date = this.state.dateEntered;
 
       //handle incorrect string somehow
@@ -48,6 +49,9 @@ class ReactComponent extends React.Component {
       //update state for both to save renders
       this.setState({ DTO, dateResponseOutput: elems });
     }
+    else {
+      alert('please enter the correct format');
+    }
   }
 
   //dont need this func separately - can do above saves a re render
@@ -64,6 +68,7 @@ class ReactComponent extends React.Component {
     return(
       <React.Fragment>
         <form onSubmit={(e) => this.dateApi(e)}>
+          <label>Please enter a date range : </label>
           <input onChange={(e) => this.setState({ dateEntered : e.target.value })}/>
           <button>Process Date</button>
         </form>
