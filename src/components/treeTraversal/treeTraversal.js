@@ -1,6 +1,4 @@
 import React from 'react';
-import { getNodeText } from '@testing-library/dom';
-import { render } from '@testing-library/react';
 
 class TreeTraversal extends React.Component {
   constructor(props){
@@ -46,13 +44,6 @@ class TreeTraversal extends React.Component {
   }
 
 
-//class TO
-//     let result = Object.keys(nodesList).reduce(function (r, k) {
-//         return r.concat(k, nodesList[k]);
-//     }, []);
-    
-// console.log(result);
-
   //1) Flatten entire structure //keys if object
   flatten = () => {
     // let bob = this.state.nodesList.flat();
@@ -78,18 +69,18 @@ class TreeTraversal extends React.Component {
             let parentIDFound = elem.parentID;
             // Return parent Obj
             const findPrentGUID = (element) => element.GUID === parentIDFound;
-            console.log('Parent object retuned :' + JSON.stringify(nodes.find(findPrentGUID)));
+            console.log('Parent object retuned : ' + JSON.stringify(nodes.find(findPrentGUID)));
           }
         })
     });
-         //OR know what idex i am at - store this and return it
-    //look up parent separately and return it
   }
 
   //3) given GUID + a child NODE 
       //insert child node into CHILDREN of this GUID at a given index
+
   render() {
     this.returnParent();
+    //below could do TREE > results ON RIGHT SIDE. might be nice...
     return (
       <React.Fragment>
         <h2>Please open console to view the call's and responses.</h2>
