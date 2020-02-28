@@ -50,20 +50,10 @@ class ReactComponent extends React.Component {
       this.setState({ DTO, dateResponseOutput: elems });
     }
     else {
-      alert('please enter the correct format');
+      alert('please enter the correct format D - D MONTH YEAR');
     }
   }
-
-  //dont need this func separately - can do above saves a re render
-  // renderDTO = () =>{
-  //   let elems = [];
-  //   let DTO = this.state.DTO;
-  //   for(let[key, value] of Object.entries(DTO)){
-  //     elems.push(<p key={key}>{key}: {value}</p>)
-  //   }
-  //   this.setState({ dateResponseOutput: elems });
-  // }
-
+  
   render(){
     return(
       <React.Fragment>

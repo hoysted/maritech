@@ -4,6 +4,6 @@ body {
 .App {
   background-color: white;
   margin: 0 auto;
-  width: 960px;
+  min-width: 90%;
   height: 100vh;
   padding: 20px; }
