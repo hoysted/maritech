@@ -66,11 +66,10 @@ class TreeTraversal extends React.Component {
   returnParent = () => {
     let nodes = this.state.nodesList;
     let passedID = 123456;
-    //console.log(this.state.nodesList);
+    console.log('Scenario 2');
+    console.log('given the child GUID: ' + passedID);
 
-
-    //take GUID - get parent property
-      // loop through objects in parent nodes array 
+      // Loop through nodes array
       nodes.forEach((element, index) => {
         //console.log(element.GUID);
         //console.log(element.children);
@@ -80,11 +79,15 @@ class TreeTraversal extends React.Component {
           //console.log(elem.GUID);
           if(elem.GUID === passedID){ //should only happen once so OK
             //get parentID
-            console.log(elem.parentID); 
+            console.log('The parent is GUID: ' + elem.parentID);
+            // console.log(elem.parentID); 
             let parentIDFound = elem.parentID;
+
+
+
             //NOW GOT PARENT ID SO LOOK UP AND RETURN PARENT OBJ
-            const isLargeNumber = (element) => element === parentIDFound;
-            console.log(nodes.find(isLargeNumber));
+            const findPrentGUID = (element) => element.GUID === parentIDFound;
+            console.log('Parent object retuned :' + JSON.stringify(nodes.find(findPrentGUID)));
           }
         })
     });
@@ -98,7 +101,7 @@ class TreeTraversal extends React.Component {
     this.returnParent();
     return (
       <React.Fragment>
-      <p>tree</p>
+        <h2>Please open console to view the call's and responses.</h2>
       </React.Fragment>
     );
   }
