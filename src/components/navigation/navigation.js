@@ -5,13 +5,12 @@ import './navigation.css';
 class Navigation extends Component {
   render() {
     const { navItems } = this.props;
-    console.log(navItems);
     
     return (
     <React.Fragment>
     <nav>
       <ul>
-        {navItems.map((item, index) => {return(<li><Link to={item.path} key={index}>{item.name}</Link></li>)})}     
+        {navItems.map((item, index) => {return(<li key={index}><Link to={item.path} key={index}>{item.name}</Link></li>)})}     
       </ul>    
     </nav>
     </React.Fragment>

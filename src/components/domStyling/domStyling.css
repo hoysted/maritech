@@ -1,0 +1,10 @@
+div {
+  width: auto;
+  padding: 20px;
+  margin-bottom: 20px; }
+  div .SYS {
+    outline: 1px solid red; }
+  div .PAR {
+    outline: 1px solid green; }
+  div .ACT {
+    outline: 1px solid blue; }

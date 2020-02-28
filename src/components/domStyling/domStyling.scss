@@ -1,0 +1,22 @@
+$sys-border-col: red;
+$par-border-col: green;
+$act-border-col: blue;
+
+
+div {
+    width: auto;
+    padding:20px;
+    margin-bottom: 20px;
+
+    .SYS {
+        outline: 1px solid $sys-border-col;
+    }
+
+    .PAR {
+        outline: 1px solid $par-border-col;
+    }
+
+    .ACT {
+        outline: 1px solid $act-border-col;
+    }
+}

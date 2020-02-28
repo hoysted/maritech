@@ -1,4 +1,5 @@
 import React from 'react';
+import './domStyling.css';
 
 class DomStyling extends React.Component {
 
@@ -9,8 +10,9 @@ class DomStyling extends React.Component {
       let newString = item.split(':');
       let prefix = newString[0];
       let value = newString[1];
-      elements.push(<p className={prefix} key={index}>{value}</p>);
+      elements.push(<div className={prefix} key={index}><p>{value}</p></div>);
     })
+    
     return elements;
   }
 
