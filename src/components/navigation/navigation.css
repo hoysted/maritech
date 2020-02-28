@@ -1,6 +1,4 @@
-nav ul {
-  outline: 1px solid red; }
-  nav ul li {
-    display: inline-block;
-    list-style-type: none;
-    margin: 20px 20px; }
+nav ul li {
+  display: inline-block;
+  list-style-type: none;
+  margin: 20px 20px; }
