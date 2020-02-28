@@ -71,21 +71,12 @@ class TreeTraversal extends React.Component {
 
       // Loop through nodes array
       nodes.forEach((element, index) => {
-        //console.log(element.GUID);
-        //console.log(element.children);
-        //console.log(index);
-        //loop children array for each parent searching for parentID
+        // Loop children array
         element.children.forEach((elem, index) => {
-          //console.log(elem.GUID);
-          if(elem.GUID === passedID){ //should only happen once so OK
-            //get parentID
+          if(elem.GUID === passedID){ 
             console.log('The parent is GUID: ' + elem.parentID);
-            // console.log(elem.parentID); 
             let parentIDFound = elem.parentID;
-
-
-
-            //NOW GOT PARENT ID SO LOOK UP AND RETURN PARENT OBJ
+            // Return parent Obj
             const findPrentGUID = (element) => element.GUID === parentIDFound;
             console.log('Parent object retuned :' + JSON.stringify(nodes.find(findPrentGUID)));
           }
