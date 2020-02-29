@@ -45,12 +45,71 @@ class TreeTraversal extends React.Component {
 
 
   //1) Flatten entire structure //keys if object
-  flatten = () => {
+  //destructuring
+  flattenNodes = () => {
+    console.log('flatten');
+
+  //   function flat(array) {
+  //     var result = [];
+  //     array.forEach(function (a) {
+  //         result.push(a);
+  //         if (Array.isArray(a.children)) {
+  //             result = result.concat(flat(a.children));
+  //         }
+  //     });
+  //     return result;
+  // }
+  
+  let data = this.state.nodesList;
+  // let result = flat(data);
+  // console.log(JSON.stringify(data, 0, 4));
+  // console.log(JSON.stringify(result, 0, 4));
+
+  //let result = Array.prototype.concat(...data);
+  //console.log(JSON.stringify(data, 0, 4));
+
+
+    //loop through
+    let childrenSet = [];
+    let childIndexSet = [];
+    data.forEach((element, index) => {
+      element.children.forEach((elem, index) => {
+        //push item to storing array ready for concat
+        childrenSet.push(elem); //put in 1 array??
+        childIndexSet.push(index);
+        //console.log(childIndex);
+        //also want to delete from here
+        //element.children.splice(childIndex, 1);
+      })
+    })
+    //console.log(JSON.stringify(data, 0, 4));
+    console.log(childrenSet);
+    console.log(childIndexSet);
+
+    //delete children from parents
+    data.forEach((elem,Index) => {
+      console.log(childIndexSet);
+      
+      elem.children.splice(childIndexSet, 1);// needs to be value of childIndexSet
+    })
+
+    console.log(JSON.stringify(data, 0, 4));
+    let finalResult = data.concat(childrenSet);
+
+    console.log(JSON.stringify(finalResult, 0, 4));
+
+    //add children to one array
+
+    //add parents to another array
+
+    //then concat them both into one array
+
+
     // let bob = this.state.nodesList.flat();
     // let luke = bob.reduce((acc, val) => acc.concat(val), []);
     // console.log(luke);
+    // console.log(JSON.stringify(nodesList));
   }
-  // console.log(JSON.stringify(nodesList));
   
 
   //2) return a parent OBJECT when GUID for a child sent
@@ -79,7 +138,11 @@ class TreeTraversal extends React.Component {
       //insert child node into CHILDREN of this GUID at a given index
 
   render() {
-    this.returnParent();
+    this.flattenNodes();
+    //this.returnParent();
+
+
+
     //below could do TREE > results ON RIGHT SIDE. might be nice...
     return (
       <React.Fragment>
