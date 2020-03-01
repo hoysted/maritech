@@ -6,7 +6,7 @@ class DomStyling extends React.Component {
   returnElementsToRender = (string) => {
     let elements = [];
   
-    string.map((item, index) => {
+    string.forEach((item, index) => {
       let newString = item.split(':');
       let prefix = newString[0];
       let value = newString[1];

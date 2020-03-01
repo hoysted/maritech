@@ -151,7 +151,7 @@ class TreeTraversal extends React.Component {
     const nodesWithInsertedChild = this.insert(parentId, newNode, index, this.state.nodesList);
     console.log('inserts the node and outputs');
     console.log(nodesWithInsertedChild);
-    
+
     return nodesWithInsertedChild;
   }
 
@@ -170,7 +170,7 @@ class TreeTraversal extends React.Component {
     //below could do TREE > results ON RIGHT SIDE. might be nice...
     return (
       <React.Fragment>
-        <h2>Please open console to view the call's and responses.</h2>
+        <h2>Please open the console to view the calls and responses.</h2>
       </React.Fragment>
     );
   }
