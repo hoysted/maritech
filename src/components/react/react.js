@@ -17,21 +17,18 @@ class ReactComponent extends React.Component {
     if(this.state.dateEntered && this.state.dateEntered.indexOf(' ') >= 0){
       let date = this.state.dateEntered;
 
-      //handle incorrect string somehow
-
-      //split the date string to get parts
+      // split the date string to get parts
       let splitDateParts= date.split(' ');
-      console.log(splitDateParts);
 
-      //create 2 date strings
+      // create 2 date strings
       let startDateSource = splitDateParts[0] + ' ' + splitDateParts[3] + ' ' + splitDateParts[4];
       let endDateSource = splitDateParts[0] + ' ' + splitDateParts[3] + ' ' + splitDateParts[4];
 
-      //now create 2 date objects
+      // now create 2 date objects
       let startDateObj = new Date(startDateSource);
       let endDateObj = new Date(endDateSource);
 
-      //convert into ISO format and create DTO
+      // convert into ISO format and create DTO
       let DTO = {
         startDate: startDateObj.toISOString(),
         startDateVal: Date.parse(startDateObj),
@@ -40,21 +37,22 @@ class ReactComponent extends React.Component {
         textValue: date
       }
 
-      console.log(DTO)
-      //create elements to render based on API response.
-      let elems = [];
-      for(let[key, value] of Object.entries(DTO)){
-        elems.push(<p key={key}>{key}: {value}</p>)
+      // create elements to render based on API response.
+      let dateResponseOutput = [];
+      for(let[key, value] of Object.entries(DTO)) {
+        dateResponseOutput.push(<p key={key}>{key}: {value}</p>)
       }
-      //update state for both to save renders
-      this.setState({ DTO, dateResponseOutput: elems });
+
+      // update state for both to avoid multiple renders
+      this.setState({ DTO, dateResponseOutput });
     }
     else {
-      alert('please enter the correct format D - D MONTH YEAR');
+      alert('Please enter the correct Date format D - D MON YY');
     }
   }
   
   render(){
+    const responseOutput = this.state.dateResponseOutput;
     return(
       <React.Fragment>
         <form onSubmit={(e) => this.dateApi(e)}>
@@ -63,7 +61,7 @@ class ReactComponent extends React.Component {
           <button>Process Date</button>
         </form>
 
-        {this.state.dateResponseOutput}
+        {responseOutput && responseOutput}
       </React.Fragment>
     )
   }
