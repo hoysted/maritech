@@ -5,7 +5,7 @@ Installation & Execution
 
 run 'npm install' from the maritech directory 
 
-run 'npm start' from the maritech directory
+run 'npm run start' from the maritech directory
 
 This runs the app in the development mode.
 
