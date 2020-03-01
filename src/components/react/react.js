@@ -56,8 +56,8 @@ class ReactComponent extends React.Component {
     return(
       <React.Fragment>
         <form onSubmit={(e) => this.dateApi(e)}>
-          <label>Please enter a date range : </label>
-          <input onChange={(e) => this.setState({ dateEntered : e.target.value })}/>
+          <label>Please enter a date range (D - D MON YY) : </label>
+          <input placeholder="D - D MON YY" onChange={(e) => this.setState({ dateEntered : e.target.value })}/>
           <button>Process Date</button>
         </form>
 
