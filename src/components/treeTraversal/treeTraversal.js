@@ -45,20 +45,9 @@ class TreeTraversal extends React.Component {
 
 
   //1) Flatten entire structure //keys if object
-  //destructuring
+  //destructuring?
   flattenNodes = () => {
     console.log('flatten');
-
-  //   function flat(array) {
-  //     var result = [];
-  //     array.forEach(function (a) {
-  //         result.push(a);
-  //         if (Array.isArray(a.children)) {
-  //             result = result.concat(flat(a.children));
-  //         }
-  //     });
-  //     return result;
-  // }
   
   let data = this.state.nodesList;
   // let result = flat(data);
@@ -99,16 +88,26 @@ class TreeTraversal extends React.Component {
     console.log(JSON.stringify(finalResult, 0, 4));
 
     //add children to one array
-
     //add parents to another array
-
     //then concat them both into one array
 
-
+    //TRIED
     // let bob = this.state.nodesList.flat();
     // let luke = bob.reduce((acc, val) => acc.concat(val), []);
     // console.log(luke);
     // console.log(JSON.stringify(nodesList));
+
+    //TRIED
+    //   function flat(array) {
+    //     var result = [];
+    //     array.forEach(function (a) {
+    //         result.push(a);
+    //         if (Array.isArray(a.children)) {
+    //             result = result.concat(flat(a.children));
+    //         }
+    //     });
+    //     return result;
+    // }
   }
   
 
@@ -138,8 +137,12 @@ class TreeTraversal extends React.Component {
       //insert child node into CHILDREN of this GUID at a given index
 
   render() {
+    //1
     this.flattenNodes();
+    //2
     //this.returnParent();
+    //3
+    //this.insertNode();
 
 
 
