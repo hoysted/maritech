@@ -10,11 +10,11 @@ class TreeTraversal extends React.Component {
         // root element
         GUID: 'bf4d365d-130c-4479-9234-a86c7b853648',
         parentID: null,
-        children: [ //defo an array 'INDEX'
+        children: [
           {
             GUID: '64bd73ba-33b4-4c1e-896d-6c78e3d0e548',
             parentID: 'bf4d365d-130c-4479-9234-a86c7b853648',
-            children: [ //defo an array 'INDEX'
+            children: [
               {
                 GUID: 'e26005ca-7449-4a30-8c95-3e018d621f67',
                 parentID: '64bd73ba-33b4-4c1e-896d-6c78e3d0e548',
@@ -73,7 +73,7 @@ class TreeTraversal extends React.Component {
     return elementsInNode;
   }
 
-  // 1) flatten the nodes into one dimensional collection
+  // 1) flatten the nodes into a 1D collection
   flatten = () => {
     const nodes = this.state.nodesList;
     // call flattenNodes with empty array to initialize 1D collection
@@ -82,6 +82,7 @@ class TreeTraversal extends React.Component {
     console.log('Scenario 1');
     console.log('flattened nodes: ');
     console.log(flattenedNodes);
+    // typical return
     return flattenedNodes;
   }
 
@@ -89,11 +90,11 @@ class TreeTraversal extends React.Component {
     let parentElement;
 
     for (const node of nodes) {
-      // if we have not found the parent then try to find it
+      // begin search for parent node
       if (!parentElement) {
-        // if the node is found, set the parent to previous node
+        // if the node is found, set the parent to previous iterated node
         if (node.GUID === childID) {
-          parentElement = parent; // parent element was passed in during recursion
+          parentElement = parent;
           break;
         } else if (node.children.length > 0) {
           // otherwise, recurse on children with parent as this node
@@ -107,16 +108,15 @@ class TreeTraversal extends React.Component {
     return parentElement;
   }
 
-  // 2) return a parent OBJECT when GUID for a child sent
+  // 2) return a parent Object when GUID for a child node sent
   returnParent = (childID) => {
-    // pass nodes in here so that doesn't get reset to entire node list during recursion
     const nodes = this.state.nodesList;
     const parentElement = this.findParent(nodes, childID, null);
     console.log('Scenario 2');
     console.log('given the child GUID: ' + childID);
-
     console.log('parent object is: ');
     console.log(parentElement);
+    // typical return
     return parentElement;
   }
 
@@ -127,7 +127,7 @@ class TreeTraversal extends React.Component {
         if (index <= node.children.length) {
           node.children.splice(index, 0, newNode);
         } else {
-          throw new Error(`Given index is larger than child array of length ${node.children.length}`)
+          throw new Error(`Given index is larger than children array of length ${node.children.length}`)
         }
         break;
       } else if (node.children.length > 0) {
@@ -149,7 +149,8 @@ class TreeTraversal extends React.Component {
     console.log(newNode);
 
     const nodesWithInsertedChild = this.insert(parentId, newNode, index, this.state.nodesList);
-    console.log('inserts the node and outputs');
+    console.log('inserts the node resulting in the new tree:');
+    // new node inserted into first child, of first child see console
     console.log(nodesWithInsertedChild);
 
     return nodesWithInsertedChild;
@@ -167,7 +168,6 @@ class TreeTraversal extends React.Component {
       children: [{}]
     }, 0);
 
-    //below could do TREE > results ON RIGHT SIDE. might be nice...
     return (
       <React.Fragment>
         <h2>Please open the console to view the calls and responses.</h2>
