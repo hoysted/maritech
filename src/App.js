@@ -3,20 +3,13 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Navigation from './components/navigation/navigation';
 import { NavItems } from './config/config';
 
-//import components for nav
+// import components for nav
 import TreeTraversal from './components/treeTraversal/treeTraversal';
 import ReactComponent from './components/react/react';
 import DomStyling from './components/domStyling/domStyling';
 import CssLayout from './components/cssLayout/cssLayout';
-import './App.css';
 
 function App() {
-
-  //tree
-  //decide if array or obj - by features
-    //1 can i flatten
-    //2can i find a parent
-    //3 given GUID can i insert into its children property
   return (
     <div className="App">
     <BrowserRouter>
