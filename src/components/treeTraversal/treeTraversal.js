@@ -31,8 +31,19 @@ class TreeTraversal extends React.Component {
             parentID: 'bf4d365d-130c-4479-9234-a86c7b853648',
             children: [
               {
-                GUID: '4e40aa91-2fb9-4881-8bc4-ea1d48b94cf1',
+                GUID: 'a8492255-7673-4a06-b126-f6da6de6abfb',
                 parentID: 'a518e1bc-34f8-4923-8674-c05a1797c227',
+                children: []
+              }
+            ]
+          },
+          {
+            GUID: 'abc8e1bc-34f8-4923-8674-c05a1797c227',
+            parentID: 'bf4d365d-130c-4479-9234-a86c7b853648',
+            children: [
+              {
+                GUID: '4e40aa91-2fb9-4881-8bc4-ea1d48b94cf1',
+                parentID: 'abc8e1bc-34f8-4923-8674-c05a1797c227',
                 children: []
               }
             ]
@@ -64,55 +75,97 @@ class TreeTraversal extends React.Component {
 
   // 1) flatten the nodes into one dimensional collection
   flatten = () => {
-    const data = this.state.nodesList;
+    const nodes = this.state.nodesList;
     // call flattenNodes with empty array to initialize 1D collection
-    const flattenedNodes = this.flattenNodes(data, []);
+    const flattenedNodes = this.flattenNodes(nodes, []);
 
+    console.log('Scenario 1');
+    console.log('flattened nodes: ');
     console.log(flattenedNodes);
     return flattenedNodes;
   }
 
-  // 2) return a parent OBJECT when GUID for a child sent
-  returnParent = () => {
-    let nodes = this.state.nodesList;
-    let passedID = 123456;
-    console.log('Scenario 2');
-    console.log('given the child GUID: ' + passedID);
+  findParent = (nodes, childID, parent) => {
+    let parentElement;
 
-      // Loop through nodes array
-      nodes.forEach((element, index) => {
-        // Loop children array
-        element.children.forEach((elem, index) => {
-          if(elem.GUID === passedID){ 
-            console.log('The parent is GUID: ' + elem.parentID);
-            let parentIDFound = elem.parentID;
-            // Return parent Obj
-            const findPrentGUID = (element) => element.GUID === parentIDFound;
-            console.log('Parent object retuned : ' + JSON.stringify(nodes.find(findPrentGUID)));
-          }
-        })
-    });
+    for (const node of nodes) {
+      // if we have not found the parent then try to find it
+      if (!parentElement) {
+        // if the node is found, set the parent to previous node
+        if (node.GUID === childID) {
+          parentElement = parent; // parent element was passed in during recursion
+          break;
+        } else if (node.children.length > 0) {
+          // otherwise, recurse on children with parent as this node
+          parentElement = this.findParent(node.children, childID, node);
+        }
+      } else {
+        break;
+      }
+    }
+
+    return parentElement;
   }
 
-  //3) given GUID + a child NODE 
-      //insert child node into CHILDREN of this GUID at a given index
+  // 2) return a parent OBJECT when GUID for a child sent
+  returnParent = (childID) => {
+    // pass nodes in here so that doesn't get reset to entire node list during recursion
+    const nodes = this.state.nodesList;
+    const parentElement = this.findParent(nodes, childID, null);
+    console.log('Scenario 2');
+    console.log('given the child GUID: ' + childID);
 
-  insertNode() {
-    let newNode = 
-    {
-      GUID: 10009,
-      parentID: 123,
-      children: [{}]
+    console.log('parent object is: ');
+    console.log(parentElement);
+    return parentElement;
+  }
+
+  insert(parentId, newNode, index, nodes) {
+    for (const node of nodes) {
+      if (node.GUID === parentId) {
+        // insert the new node here
+        if (index <= node.children.length) {
+          node.children.splice(index, 0, newNode);
+        } else {
+          throw new Error(`Given index is larger than child array of length ${node.children.length}`)
+        }
+        break;
+      } else if (node.children.length > 0) {
+        // otherwise, try to find the parent in children
+        this.insert(parentId, newNode, index, node.children);
+      }
     }
+
+    return nodes;
+  }
+
+  // 3) given GUID + a child NODE 
+  // insert child node into CHILDREN of this GUID at a given index
+  insertNode = (parentId, newNode, index) => {
+    console.log('Scenario 3');
+    console.log('given the parent ID: ' + parentId);
+    console.log('and insertion index: ' + index);
+    console.log('with new child node: ');
+    console.log(newNode);
+
+    const nodesWithInsertedChild = this.insert(parentId, newNode, index, this.state.nodesList);
+    console.log('inserts the node and outputs');
+    console.log(nodesWithInsertedChild);
+    
+    return nodesWithInsertedChild;
   }
 
   render() {
     //1
     this.flatten();
     //2
-    //this.returnParent();
+    this.returnParent('4e40aa91-2fb9-4881-8bc4-ea1d48b94cf1');
     //3
-    //this.insertNode();
+    this.insertNode('64bd73ba-33b4-4c1e-896d-6c78e3d0e548', {
+      GUID: '938d4331-a1d7-446c-9182-2fecaff6012a',
+      parentID: '64bd73ba-33b4-4c1e-896d-6c78e3d0e548',
+      children: [{}]
+    }, 0);
 
     //below could do TREE > results ON RIGHT SIDE. might be nice...
     return (
