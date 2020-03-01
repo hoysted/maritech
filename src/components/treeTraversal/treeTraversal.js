@@ -149,7 +149,7 @@ class TreeTraversal extends React.Component {
     console.log(newNode);
 
     const nodesWithInsertedChild = this.insert(parentId, newNode, index, this.state.nodesList);
-    console.log('inserts the node resulting in the new tree:');
+    console.log('inserted the node resulting in the new tree:');
     // new node inserted into first child, of first child see console
     console.log(nodesWithInsertedChild);
 
