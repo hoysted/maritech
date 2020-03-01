@@ -7,35 +7,35 @@ class TreeTraversal extends React.Component {
       bob: null,
       nodesList: [
       {
-        GUID: 123,
-        parentID: 'root',
+        // root element
+        GUID: 'bf4d365d-130c-4479-9234-a86c7b853648',
+        parentID: null,
         children: [ //defo an array 'INDEX'
           {
-            GUID: 123456,
-            parentID: 123,
-            children: [{}]
-          }
-        ]
-      },
-      {
-        GUID: 456,
-        parentID: 'root',
-        children: [
+            GUID: '64bd73ba-33b4-4c1e-896d-6c78e3d0e548',
+            parentID: 'bf4d365d-130c-4479-9234-a86c7b853648',
+            children: [ //defo an array 'INDEX'
+              {
+                GUID: 'e26005ca-7449-4a30-8c95-3e018d621f67',
+                parentID: '64bd73ba-33b4-4c1e-896d-6c78e3d0e548',
+                children: [{
+                  GUID: 'c5a3d247-ee48-476d-ae14-a0da65d34cbf',
+                  parentID: 'e26005ca-7449-4a30-8c95-3e018d621f67',
+                  children: []
+                }]
+              }
+            ]
+          },
           {
-            GUID: 12345678,
-            parentID: 456,
-            children: [{}]
-          }
-        ]
-      },
-      {
-        GUID: 789,
-        parentID: 'root',
-        children: [
-          {
-            GUID: 123456789,
-            parentID: 789,
-            children: [{}]
+            GUID: 'a518e1bc-34f8-4923-8674-c05a1797c227',
+            parentID: 'bf4d365d-130c-4479-9234-a86c7b853648',
+            children: [
+              {
+                GUID: '4e40aa91-2fb9-4881-8bc4-ea1d48b94cf1',
+                parentID: 'a518e1bc-34f8-4923-8674-c05a1797c227',
+                children: []
+              }
+            ]
           }
         ]
       }
@@ -43,75 +43,36 @@ class TreeTraversal extends React.Component {
   }
   }
 
+  flattenNodes = (nodes, elementsInNode) => {
+    // iterate through nodes on argument level
+    nodes.forEach((node) => {
+      const { children, ...elementProperties } = node;
+      // push IDs of current node to 1D collection
+      elementsInNode.push({ ...elementProperties });
 
-  //1) Flatten entire structure //keys if object
-  //destructuring?
-  flattenNodes = () => {
-    console.log('flatten');
-  
-  let data = this.state.nodesList;
-  // let result = flat(data);
-  // console.log(JSON.stringify(data, 0, 4));
-  // console.log(JSON.stringify(result, 0, 4));
+      if (children.length > 0) {
+        // recursively call function
+        // @params children - the children of the current node
+        // @params elementsInNode - the 1D collection to push to
+        this.flattenNodes(children, elementsInNode);
+      }
+    });
 
-  //let result = Array.prototype.concat(...data);
-  //console.log(JSON.stringify(data, 0, 4));
-
-
-    //loop through
-    let childrenSet = [];
-    let childIndexSet = [];
-    data.forEach((element, index) => {
-      element.children.forEach((elem, index) => {
-        //push item to storing array ready for concat
-        childrenSet.push(elem); //put in 1 array??
-        childIndexSet.push(index);
-        //console.log(childIndex);
-        //also want to delete from here
-        //element.children.splice(childIndex, 1);
-      })
-    })
-    //console.log(JSON.stringify(data, 0, 4));
-    console.log(childrenSet);
-    console.log(childIndexSet);
-
-    //delete children from parents
-    data.forEach((elem,Index) => {
-      console.log(childIndexSet);
-      
-      elem.children.splice(childIndexSet, 1);// needs to be value of childIndexSet
-    })
-
-    console.log(JSON.stringify(data, 0, 4));
-    let finalResult = data.concat(childrenSet);
-
-    console.log(JSON.stringify(finalResult, 0, 4));
-
-    //add children to one array
-    //add parents to another array
-    //then concat them both into one array
-
-    //TRIED
-    // let bob = this.state.nodesList.flat();
-    // let luke = bob.reduce((acc, val) => acc.concat(val), []);
-    // console.log(luke);
-    // console.log(JSON.stringify(nodesList));
-
-    //TRIED
-    //   function flat(array) {
-    //     var result = [];
-    //     array.forEach(function (a) {
-    //         result.push(a);
-    //         if (Array.isArray(a.children)) {
-    //             result = result.concat(flat(a.children));
-    //         }
-    //     });
-    //     return result;
-    // }
+    // return 1D collection of nodes
+    return elementsInNode;
   }
-  
 
-  //2) return a parent OBJECT when GUID for a child sent
+  // 1) flatten the nodes into one dimensional collection
+  flatten = () => {
+    const data = this.state.nodesList;
+    // call flattenNodes with empty array to initialize 1D collection
+    const flattenedNodes = this.flattenNodes(data, []);
+
+    console.log(flattenedNodes);
+    return flattenedNodes;
+  }
+
+  // 2) return a parent OBJECT when GUID for a child sent
   returnParent = () => {
     let nodes = this.state.nodesList;
     let passedID = 123456;
@@ -136,15 +97,22 @@ class TreeTraversal extends React.Component {
   //3) given GUID + a child NODE 
       //insert child node into CHILDREN of this GUID at a given index
 
+  insertNode() {
+    let newNode = 
+    {
+      GUID: 10009,
+      parentID: 123,
+      children: [{}]
+    }
+  }
+
   render() {
     //1
-    this.flattenNodes();
+    this.flatten();
     //2
     //this.returnParent();
     //3
     //this.insertNode();
-
-
 
     //below could do TREE > results ON RIGHT SIDE. might be nice...
     return (
