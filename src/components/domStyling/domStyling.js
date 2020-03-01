@@ -11,7 +11,7 @@ class DomStyling extends React.Component {
       let prefix = newString[0];
       let value = newString[1];
       elements.push(<div className={prefix} key={index}><p>{value}</p></div>);
-    })
+    });
     
     return elements;
   }
